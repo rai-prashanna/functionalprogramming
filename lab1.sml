@@ -58,7 +58,15 @@ val minus = fn x => fn y => x- y;
 (* val bar = fn: int -> int *)
 
 (*Question 2.4: step-by-step evaluation of minus 5 4 *)
-(*  *)
+(*  
+//compiler defines above function minus 5 4 as minus = fn x => fn y => x-y;
+
+minus 5 4;
+(minus 5) 4;
+fn x => fn y =>x-y
+5-4;
+
+   *)
  
 
 (*******************************************************************************************)
