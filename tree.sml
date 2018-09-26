@@ -4,3 +4,7 @@ val mytree = Node(Node(Empty,2,Empty),1,Node(Node(Empty,4,Empty),3,Node(Empty,6,
 countNodes(mytree);
 
 fun listNodes(Empty) = nil | listNodes(Node(left,x,right)) = [x] @ listNodes(left) @ listNodes(right);
+listNodes(mytree);
+fun is_present(Empty) item= false | is_present(Node(left,x,right)) item= if x=item then true else is_present(left) item orelse is_present(right) item;
+is_present(mytree) 1;
+is_present(mytree) 5;
