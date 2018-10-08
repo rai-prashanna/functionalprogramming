@@ -1,8 +1,8 @@
 
 (* append : ’a list −> ’a list −> ’a list *)
-fun memeber x = foldl (fn (y,b)=>b orelse x=y) false;
+fun member x = foldl (fn (y,b)=>b orelse x=y) false;
 
-val x = memeber 1 [1,2,3];
+val x = member 1 [1,2,3];
 
 
 (* append : ’a list −> ’a list −> ’a list *)
@@ -28,17 +28,8 @@ filter (fn n => n > 50) [1,2,3,4,200,100,5];
 (*binary tree *)
 datatype tree = Void | Node of tree * int * tree;
 
-fun subtree a b Void = Void | subtree a b (Node(Void,label,Void)) = if (label >= a andalso label < b ) then Node(Void,label,Void) else Void | subtree a b (Node(left,label,Void)) = if (label >= a andalso label < b ) then (Node(subtree a b left,label,Void)) else subtree a b left | subtree a b (Node(Void, label,right)) = if (label >= a andalso label < b ) then (Node(Void,label,subtree a b right)) else subtree a b right | subtree a b (Node (left,label,right))= if (label >= a andalso label < b ) then Node(subtree a b left,label,subtree a b right) else subtree(Node(subtree a b left,label,subtree a b right));
-
-
-
-fun subtree a b Void = Void | subtree a b (Node(Void,label,Void)) = if (label >= a andalso label < b ) then Node(Void,label,Void) else Void | subtree a b (Node (left,label,right))= if (label >= a andalso label < b ) then Node(subtree a b left,label,subtree a b right) else subtree a b (Node(subtree a b left,label,subtree a b right));
+fun sub_tree a b Void = Void | sub_tree a b (Node(Void,label,Void)) = if (label >= a andalso label < b ) then Node(Void,label,Void) else Void | sub_tree a b (Node(left,label,Void)) = if (label >= a andalso label < b ) then (Node(sub_tree a b left,label,Void)) else sub_tree a b left | sub_tree a b (Node(Void, label,right)) = if (label >= a andalso label < b ) then (Node(Void,label,sub_tree a b right)) else sub_tree a b right | sub_tree a b (Node (left,label,right))= if (label >= a andalso label < b ) then Node(sub_tree a b left,label,sub_tree a b right) else sub_tree a b (Node(sub_tree a b left,label,sub_tree a b right));
  
-
-	| subtree a b (Node(left,label,Void)) = if (label >= a andalso label < b ) then (Node(subtree a b left,label,Void)) else subtree a b left ;
-	| subtree a b (Node(Void, label,right)) = if (label >= a andalso label < b ) then (Node(Void,label,subtree a b right)) else subtree a b right 
-	| subtree a b (Node (left,label,right))= if (label >= a andalso label < b ) then Node(subtree a b left,label,subtree a b right) else subtree(Node(subtree a b left,label,subtree a b right));
-
 
 
 
@@ -49,4 +40,4 @@ val ex1 = Node(Node(Node(Void, 0, Node(Void, 2, Void)), 3, Node(Void, 5, Void)),
 
 val ex1 = Node(Void,6,Void);
 
-subtree 5 8 ex1;
+sub_tree 5 8 ex1;
