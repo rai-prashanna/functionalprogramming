@@ -29,5 +29,5 @@ fun labels(Node(a,[]))= [a] | labels(Node(a,x::xs))=labels(x)@labels(Node(a,xs))
 fun height (Node(_,[])) =1 | height (Node(a,x::xs)) = Int.max(height(x)+1,height(Node(a,xs)));
 
 
-fun is_present (Node(a,[])) element= if a=element then true else false | is_present (Node(a,(x::xs))) element = if a=element then true else let val Node(b,_)=x in is_present (Node(b,xs)) element end;
+fun is_present (Node(a,[])) element= if a=element then true else false | is_present (Node(a,(x::xs))) element = if a=element then true else let val Node(b,_)=x in is_present x element orelse is_present (Node(b,xs)) element end;
 
