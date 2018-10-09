@@ -18,10 +18,41 @@ iota 5 should return [0, 1, 2, 3, 4].
 fun iota 0 = [] | iota n = iota(n-1) @ [n-1];
 
 
-(* Intersection *) 
-(* 2.1 inter s1 s2  *)
+(* Question2 *)
+fun split [] =
+      ([], [])
+  | split [x] =
+      ([x], [])
+  | split (x1::x2::xs) =
+      let
+        val (xs1,xs2) = split xs
+      in
+        (x1::xs1, x2::xs2)
+      end;
 
-(* fun mergesort [] = []
+split [1,2,3,4,5];
+
+(* merge (xs,ys)
+   TYPE: int list * int list -> int list
+   PRE: xs and ys are sorted
+   POST: a sorted permutation of xs @ ys
+ *)
+fun merge ([], ys) = ys
+  | merge (xs, []) = xs
+  | merge (x::xs, y::ys) =
+      if x <= y then
+        x :: merge (xs, y::ys)
+      else
+        y :: merge (x::xs, ys);
+
+merge ([1,3,5], [2,4]);
+
+(* mergesort xs
+   TYPE: int list -> int list
+   PRE: true
+   POST: a sorted permutation of xs
+ *)
+fun mergesort [] = []
   | mergesort [x] = [x]
   | mergesort xs =
       let
@@ -31,11 +62,16 @@ fun iota 0 = [] | iota n = iota(n-1) @ [n-1];
       end;
 
 mergesort [1,3,5,2,4];
-*)
 
-fun selectsort([]) = []
-  | selectsort(x::y::t : IntInf.int list) =
-    if y < x then y::x::selectsort(t) else x::selectsort(y::t)
-fun selectsort([a]) = [a]
-  | selectsort(x::y::t : IntInf.int list) =
-    if y < x then y::x::selectsort(t) else x::selectsort(y::t)
+
+fun intersect ([], _) = []
+| intersect (x::xs, ys) =
+  if List.exists (fn y => x = y) ys
+  then x :: intersect (xs, ys)
+  else intersect (xs, ys);
+
+val l1 = [1,2,3];
+val l2 = [1,2,4];
+
+intersect(l1,l2);
+

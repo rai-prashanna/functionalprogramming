@@ -1,0 +1,9 @@
+datatype 'a btree = Node of 'a * 'a btree list;
+val val test_tree3 = Node ("hej",
+                                   [Node ("hello", [Node ("ni hao", [Node ("ahoj", [])])]),
+                                    Node ("bonjour", [Node ("privet", [Node ("guten tag", [])])]),
+                                    Node ("namaste", [Node ("ciao", [Node ("As-salam alaykom", [Node ("saluton", [Node ("hei", [Node ("halo", [])])]),
+                                                                                                Node ("kon-nichiwa", [Node ("an-nyong ha-se-yo ", [Node ("ola", [])])]),
+                                                                                                Node ("sa-wat-dee", [Node ("selam", [Node ("jambo", [])])])])])])]);
+fun height (Node(_,[])) =0 | height (Node(a,x::xs))= 1 + Int.max(height(x),height(Node(a,xs)));
+height test_tree3;
