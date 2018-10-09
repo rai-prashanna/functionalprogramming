@@ -1,4 +1,10 @@
 
+fun length [] acc = acc | length (x::xs) acc= length xs (acc+1.0);
+
+
+fun average []= 0.0 | average (x::xs) = let val len=length (x::xs) 0.0 fun average' acc [] = acc |average' acc (x::xs) = average' ((x/len)+ acc) xs in average' 0.0 (x::xs)  end;
+
+
 (* append : ’a list −> ’a list −> ’a list *)
 fun member x = foldl (fn (y,b)=>b orelse x=y) false;
 
@@ -30,12 +36,6 @@ datatype tree = Void | Node of tree * int * tree;
 
 fun sub_tree a b Void = Void | sub_tree a b (Node(Void,label,Void)) = if (label >= a andalso label < b ) then Node(Void,label,Void) else Void | sub_tree a b (Node(left,label,Void)) = if (label >= a andalso label < b ) then (Node(sub_tree a b left,label,Void)) else sub_tree a b left | sub_tree a b (Node(Void, label,right)) = if (label >= a andalso label < b ) then (Node(Void,label,sub_tree a b right)) else sub_tree a b right | sub_tree a b (Node (left,label,right))= if (label >= a andalso label < b ) then Node(sub_tree a b left,label,sub_tree a b right) else sub_tree a b (Node(sub_tree a b left,label,sub_tree a b right));
  
-
-
-
-
-
-
 val ex1 = Node(Node(Node(Void, 0, Node(Void, 2, Void)), 3, Node(Void, 5, Void)), 6, Node(Void, 7, Node(Void, 8, Node(Void, 9, Node(Node(Void, 10, Void), 12, Node(Void, 15, Node(Void, 19, Void)))))))
 
 val ex1 = Node(Void,6,Void);
