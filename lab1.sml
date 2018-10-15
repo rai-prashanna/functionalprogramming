@@ -62,10 +62,10 @@ val minus = fn x => fn y => x- y;
 //compiler defines above function minus 5 4 as minus = fn x => fn y => x-y;
 
 minus 5 4;
-(minus 5) 4;
-fn x => fn y =>x-y
-5-4;
-
+(fn x => fn y => x - y) 5 4
+(fn y => 5 - y) 4
+5 - 4
+1
    *)
  
 
@@ -76,7 +76,7 @@ fn x => fn y =>x-y
 (* Question 3.1: int −> int *)
 (* fun1 x
    TYPE: int -> int
-   PRE: only integer
+   PRE: true
    POST: x+1
    SIDE-EFFECTS: none
    EXAMPLES: fun1 1 = 2, fun1 3 = 4
@@ -87,7 +87,7 @@ fn x => fn y =>x-y
 (* Question 3.2: int −> int −> int *)
 (* fun2 x y
    TYPE: int −> int −> int
-   PRE: only integer
+   PRE: true
    POST: x+y
    SIDE-EFFECTS: none
    EXAMPLES: fun1 1 1 = 2, fun1 3 1 = 4
@@ -97,7 +97,7 @@ fun fun2 x y = x+y;
 (* Question 3.3: int −> int ∗ int *)
 (* fun3 x
    TYPE: int −> int ∗ int
-   PRE: only integer
+   PRE: true
    POST: (2*x,3*x)
    SIDE-EFFECTS: none
  *)
@@ -107,7 +107,7 @@ fun fun3 x = (2*x,3*x);
 (* Question 3.4: int ∗ int −> int *)
 (* fun4 (x,y)
    TYPE: int ∗ int −> int
-   PRE: only integer
+   PRE: true
    POST: x*y
    SIDE-EFFECTS: none
  *)
@@ -121,16 +121,16 @@ fun fun4 (x,y) = x*y;
    POST: returns z 
    SIDE-EFFECTS: none
  *)
-fun fun5 (x:int) (y:real) (z:string) = if z="foo" then "bar" else z;
+fun fun5 (x:int) (y:real) (z:string) = z;
 
 (* Question 3.6: int ∗ ( string ∗ string ∗ int ) −> int ∗ string *)
 (* fun6 x y z w
    TYPE: int ∗ ( string ∗ string ∗ int ) −> int ∗ string
-   PRE: only integer
-   POST: convert integer valuse of x to string 
+   PRE: true
+   POST: create new tuple with x  and z"arguments 
    SIDE-EFFECTS: none
  *)  
-fun fun6 (x:int,(y:string,z:string,w:int)) =  (x,Int.toString(w));
+fun fun6 (x:int,(y:string,z:string,w:int)) =  (x,z);
 
 
 (*******************************************************************************************)
@@ -142,6 +142,18 @@ fun fun6 (x:int,(y:string,z:string,w:int)) =  (x,Int.toString(w));
    POST: calcuates difference between square of sum of all number up to n with sum of squares of numbers upto n
    SIDE-EFFECTS: none
  *)  
+(* sumofsquares n
+   TYPE: int -> int
+   PRE: only positive integer
+   POST: calculates sum of square of  1st natural number
+   SIDE-EFFECTS: none
+ *) 
+(* squareofsum n
+   TYPE: int -> int
+   PRE: only positive integer 
+   POST: calcuates intermediate result needed for sum_square_diff i.e  (product of square of n and next n integer)/4
+   SIDE-EFFECTS: none
+ *) 
 fun sumofsquares n = if n=1 then 1 else n*n + sumofsquares(n-1);
 fun squareofsum n : int = (n*n*(n+1)*(n+1)) div 4;
 exception Matherror ;
