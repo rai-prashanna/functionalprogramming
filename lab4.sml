@@ -47,6 +47,11 @@ fun vertices Void = []
     [value] @ (vertices(Connected(xs)))
 end;    
 
+fun neighbors Void element = []
+| neighbors (Point(a)) element = []
+| neighbors (Connected([])) element = []
+| neighbors (Connected((Point(a),[])::xs)) element = neighbors (Connected(xs)) element
+| neighbors (Connected((Point(a),ys)::xs)) element = if (a=element) then getPointsExcluding (ys) element else neighbors (Connected(xs)) element;
 
 fun getPointsExcluding ([]) element= [] 
 | getPointsExcluding ((Edge (Point(value1), Point(value2)))::xs) element= if (value1 <> element) then [value1] @ getPointsExcluding (xs) element else [value2] @ getPointsExcluding (xs) element;
