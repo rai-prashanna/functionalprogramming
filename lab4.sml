@@ -36,3 +36,14 @@ fun add_edge Void point1 point2 = (Connected([]))
     else (addComponent (Connected([x])) (add_edge (Connected(xs)) point1 point2))
     end;
 
+fun vertices Void = []
+| vertices (Point(a)) = [a]
+| vertices (Connected([])) =[]
+| vertices (Connected(x::xs)) =
+  let
+    val (point , edges) = x
+    val (Point(value)) = point
+    in
+    [value] @ (vertices(Connected(xs)))
+end;    
+
