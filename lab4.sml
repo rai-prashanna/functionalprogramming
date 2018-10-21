@@ -47,3 +47,7 @@ fun vertices Void = []
     [value] @ (vertices(Connected(xs)))
 end;    
 
+
+fun getPointsExcluding ([]) element= [] 
+| getPointsExcluding ((Edge (Point(value1), Point(value2)))::xs) element= if (value1 <> element) then [value1] @ getPointsExcluding (xs) element else [value2] @ getPointsExcluding (xs) element;
+
