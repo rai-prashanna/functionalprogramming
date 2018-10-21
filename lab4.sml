@@ -22,12 +22,17 @@ fun add_vertex Void (a) = Point(a)
 fun addComponent (Connected([])) (Connected([])) = Connected([]) | addComponent (Connected([])) (Connected(x::xs)) = Connected(x::xs) 
   | addComponent (Connected(xs)) (Connected(ys)) = Connected(xs@ys);
 
-fun add_edge Void point1 point2 =Void
-  | add_edge (Point(a)) point1 point2 = (Point(a))
-  | add_edge (Connected(x::xs)) point1 point2 =  
+fun add_edge Void point1 point2 = (Connected([]))
+  | add_edge (Point(a)) point1 point2 = (Connected([]))
+  | add_edge (Connected([])) point1 point2 =(Connected([]))
+  | add_edge (Connected(x::xs): ''a component) (point1:''a) (point2:''a) =  
   let 
-    val (point,edges) = x
-    in (Connected([(point,[Edge(Point(point1),Point(point2))]@edges)])) end;
-
-end;
+    val (point , edges) = x
+    val (Point(value)) = point
+    val pointOne =Point(point1)
+    val pointTwo =Point(point2)
+    in 
+      if (value=point1 orelse value=point2) then addComponent (Connected([(point,[Edge(Point(point1),Point(point2))]@edges)])) (add_edge (Connected(xs)) point1 point2) 
+    else (addComponent (Connected([x])) (add_edge (Connected(xs)) point1 point2))
+    end;
 
