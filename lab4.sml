@@ -56,3 +56,35 @@ fun neighbors Void element = []
 fun getPointsExcluding ([]) element= [] 
 | getPointsExcluding ((Edge (Point(value1), Point(value2)))::xs) element= if (value1 <> element) then [value1] @ getPointsExcluding (xs) element else [value2] @ getPointsExcluding (xs) element;
 
+
+
+fun removeSimilarEdges ((Edge (Point(value11), Point(value12)))) ((Edge (Point(value21), Point(value22))))= if ((value11=value22) orelse (value11=value21)) then ((Edge (Point(value11), Point(value12)))::[]) 
+else if ((value12=value22) orelse (value12=value21)) then ((Edge (Point(value11), Point(value12)))::[]) else ((Edge (Point(value11), Point(value12))))::((Edge (Point(value21), Point(value22))))::[];
+
+fun getAllEdges (Connected([])) =[]
+  | getAllEdges (Connected((Point(a),[])::xs)) = getAllEdges(Connected(xs))
+  | getAllEdges (Connected((Point(a),ys)::xs)) = ys@getAllEdges(Connected(xs));
+
+fun filteredges [] = []
+| filteredges (x::y::xs) = (removeSimilarEdges x y) @ filteredges xs;
+
+fun getVerticesInString (Connected([])) = " "
+| getVerticesInString (Connected(x::xs)) =
+let
+   val (y::ys) = vertices (Connected(x::xs)) 
+ in
+ "\n"^"   "^y^";"^"   "^"\n"^"   "^getVerticesInString(Connected(xs))  
+ end;
+
+fun getedgesinstring [] = ""
+| getedgesinstring (((Edge (Point(value1), Point(value2))))::xs) = "\n"^"   "^value1^"  --  "^value2^";"^"  "^"\n"^"   "^getedgesinstring(xs);
+
+
+fun displayGraph (Connected([])) = print(" ")
+| displayGraph (Connected(x::xs)) = 
+  let
+    val edgeslist = getAllEdges (Connected(x::xs))
+    val edgeslist' = filteredges edgeslist
+    val edgesString = getedgesinstring edgeslist'
+    val verticesString = getVerticesInString (Connected(x::xs))  
+  in
